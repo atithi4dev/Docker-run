@@ -1,0 +1,44 @@
+docker container ls
+docker images ls
+
+docker run -it <ImageName(example: ubuntu)>   ----> Creates a container and gets ubuntu image it
+docker start containerName ---> Starts the container
+docker stop containerName ---> Stops the container
+docker exec containerName ls  ---> Shows about folders and data in container though being inside own terminal
+docker exec -it <containerName> <command(example: bash)> ---> Move from your terminal to bash of container
+docker run -it -p 6000:8000 piyushgargdev/mynodeapp  --->PORT MAPPING(Mount CONTAINER PORTS TO LOCAL PORTS)
+docker run -it -p 1025:1025 -e key=value -e key=value piyushgargdev/mynodeapp   ---> (Pass Env variables)
+docker build -t <IMAGENAME (example: yt-backend)> .(DOT IS HERE FOR FILEPATH OF Dockerfile) ---> WAY TO MAKE IMAGE OF YOUR CONTAINER
+docker compose up ----> (Its to compose your app when you have successfully created your docker-compose.yml)
+
+DOCKER ADVANCE
+
+(DOCKER NETWORKING) THERE ARE THREE TYPES OF NETWROKING- (BRIDGE, HOST, NONE, YOU CAN ALSO CREATE YOUR OWN NETWORKING)
+
+docker network ls ---> view available networks
+docker network inspect bridge 
+docker run -it --network=host <ImageName>  --> (run a container in host mode (No need to run -p PORT:PORT as networking is directly attached to host))
+docker run -it --network=bridge <ImageName> ----> (run a container within bridge mode)
+none mode do not allow network to flow 
+
+
+CREATE YOUR OWN DOCKER CUSTOM NETWORK --(YOU CAN MAKE CONTAINERS COMMUNICATE INTERNALLY OR MEANS SHARE THEIR NETWORK)
+docker network create -d bridge customNetwork --> Create a network with name customNetwork which is of bridge type
+docker network ls
+
+
+docker run -it --network=customNetwork --name tony_stark busybox --> run container 1 in customNetwork named tony_stark
+docker run -it --network=customNetwork --name dr_strange ubuntu --> run container 2 in customNetwork named dr_strange
+
+
+now if you in any of these do --> ((ping tony_stark || ping dr_strange))  ---> YOU WILL BE ABLE to ACCESS THEIR NETWORK
+docker network inspect customNetwork --> inspect your network and see which containers are attached
+
+
+
+
+yt-engine
+docker compose build
+MODE=dev docker compose up
+MODE=prod docker compose up
+
