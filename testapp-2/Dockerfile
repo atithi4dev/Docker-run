@@ -1,0 +1,11 @@
+FROM node:iron-trixie-slim
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm install
+
+COPY . .
+
+CMD ["npm","run","dev"]
+
